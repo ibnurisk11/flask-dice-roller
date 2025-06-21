@@ -1,0 +1,191 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #282c34;
+    color: #f0f0f0;
+    margin: 0;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.container {
+    background-color: #3a3f47;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #61dafb;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.controls label {
+    font-size: 1.1em;
+    margin-right: 5px;
+}
+
+.controls input[type="number"] {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4a505b;
+    color: #f0f0f0;
+    width: 70px;
+    text-align: center;
+    font-size: 1em;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.controls input[type="number"]:focus {
+    background-color: #5a606b;
+}
+
+button {
+    background-color: #61dafb;
+    color: #282c34;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #4dc2ed;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #36aed9;
+    transform: translateY(0);
+}
+
+.dice-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    min-height: 150px;
+}
+
+/* --- Gaya Dadu 3D --- */
+.dice-cube {
+    --dice-bg-color: #f0f0f0; /* Variabel untuk warna latar belakang dadu */
+    --dice-dot-color: #282c34; /* Variabel untuk warna dot dadu */
+
+    width: 100px;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    margin: 10px;
+    will-change: transform;
+    /* Transisi untuk properti transform dan warna */
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.5s ease; /* Transisi warna */
+}
+
+/* Optimasi: Animasi roll yang lebih dinamis */
+.dice-cube.rolling {
+    animation: rollAnimation 1.5s ease-out forwards;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.cube-face {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: var(--dice-bg-color); /* Gunakan variabel warna dadu */
+    border: 1px solid var(--dice-dot-color); /* Gunakan variabel warna dot untuk border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: bold;
+    color: var(--dice-dot-color); /* Gunakan variabel warna dot untuk angka */
+    backface-visibility: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Posisi setiap sisi kubus (tetap sama) */
+.face-1 { transform: rotateY(0deg) translateZ(50px); }
+.face-6 { transform: rotateY(180deg) translateZ(50px); }
+.face-2 { transform: rotateY(90deg) translateZ(50px); }
+.face-5 { transform: rotateY(-90deg) translateZ(50px); }
+.face-3 { transform: rotateX(90deg) translateZ(50px); }
+.face-4 { transform: rotateX(-90deg) translateZ(50px); }
+
+@keyframes rollAnimation {
+    0% {
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: translateZ(50px) rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+        animation-timing-function: ease-out;
+    }
+    100% {
+        /* Ini akan di-override oleh JavaScript untuk hasil akhir */
+    }
+}
+
+.results {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #a8a8a8;
+}
+
+.results #totalResult {
+    color: #61dafb;
+    font-size: 1.8em;
+}
+
+/* Responsif (tetap sama) */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    .controls input {
+        width: 100px;
+    }
+    .dice-cube {
+        width: 80px;
+        height: 80px;
+    }
+    .cube-face {
+        width: 80px;
+        height: 80px;
+        font-size: 3em;
+    }
+    .face-1 { transform: rotateY(0deg) translateZ(40px); }
+    .face-6 { transform: rotateY(180deg) translateZ(40px); }
+    .face-2 { transform: rotateY(90deg) translateZ(40px); }
+    .face-5 { transform: rotateY(-90deg) translateZ(40px); }
+    .face-3 { transform: rotateX(90deg) translateZ(40px); }
+    .face-4 { transform: rotateX(-90deg) translateZ(40px); }
+}

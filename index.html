@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dice Roller</h1>
+
+        <div class="controls">
+            <label for="numDice">Jumlah Dadu:</label>
+            <input type="number" id="numDice" value="1" min="1">
+
+            <label for="numSides">Sisi Dadu:</label>
+            <input type="number" id="numSides" value="6" min="2">
+
+            <button id="rollButton">Lempar Dadu!</button>
+        </div>
+
+        <div id="diceContainer" class="dice-container">
+            </div>
+
+        <div id="results" class="results">
+            <p>Total: <span id="totalResult">0</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
